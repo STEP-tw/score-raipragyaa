@@ -2,6 +2,7 @@ let snake = undefined;
 let food = undefined;
 let numberOfRows = 60;
 let numberOfCols = 120;
+let score = 0;
 
 let animator = undefined;
 
@@ -56,9 +57,10 @@ const createFood = function(numberOfRows, numberOfCols) {
 }
 
 const addScore = function() {
-// let scoreBoard = document.getElementById('scoreBoard');
- alert('time to add score');
-}
+  score += 10;
+let scoreBoard = document.getElementById('scoreBoard');
+scoreBoard.innerText = `score is ${score}`
+};
 
 const startGame = function() {
   createSnake();
