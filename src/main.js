@@ -1,35 +1,32 @@
-let snake = undefined;
-let food = undefined;
-let numberOfRows = 60;
-let numberOfCols = 120;
-let animator = undefined;
-let score = 0;
+let game=undefined;
+let food=undefined;
+let numberOfRows=60;
+let numberOfCols=120;
+let animator=undefined;
 
-const animateSnake = function() {
-  let oldHead = snake.getHead();
-  let oldTail = snake.move();
-  let head = snake.getHead();
-  paintBody(oldHead);
-  unpaintSnake(oldTail);
-  paintHead(head);
-  if (head.isSameCoordAs(food)) {
-    snake.grow();
-    createFood(numberOfRows, numberOfCols);
-    drawFood(food);
-    addScore();
+const animateSnake=function() {
+  let details=game.move();
+  paintBody(details.oldHead);
+  unpaintSnake(details.oldTail);
+  paintHead(details.head);
+  if(game.hasSnakeEatenFood()) {
+    game.grow();
+    game.createFood();
+    game.updateScore();
+    drawFood(game.getFood());
   }
 }
 
 const changeSnakeDirection = function(event) {
   switch (event.code) {
     case "KeyA":
-      snake.turnLeft();
+      game.turnLeft();
       break;
     case "KeyD":
-      snake.turnRight();
+      game.turnRight();
       break;
     case "KeyC":
-      snake.grow();
+      game.grow();
       break;
     default:
   }
@@ -47,28 +44,29 @@ const createSnake = function() {
   body.push(tail);
   body.push(tail.next());
   let head = tail.next().next();
-
-  snake = new Snake(head, body);
+  snake=new Snake(head,body);
+  game.addSnake(snake);
 }
 
 const createFood = function(numberOfRows, numberOfCols) {
   food = generateRandomPosition(numberOfCols, numberOfRows);
 }
 
-const addScore = function() {
-  score += 10;
-let scoreBoard = document.getElementById('scoreBoard');
-scoreBoard.innerHTML = `<h1>score is : ${score}</h1>`
-};
+const createGame=function() {
+  let topLeft=new Position(0,0,"east");
+  let bottomRight=new Position(numberOfCols,numberOfRows,"east");
+  game=new Game(topLeft,bottomRight);
+}
 
-const startGame = function() {
+const startGame=function() {
+  createGame();
   createSnake();
-  drawGrids(numberOfRows, numberOfCols);
-  drawSnake(snake);
-  createFood(numberOfRows, numberOfCols);
-  drawFood(food);
+  drawGrids(numberOfRows,numberOfCols);
+  drawSnake(game.getSnake());
+  game.createFood();
+  drawFood(game.getFood());
   addKeyListener();
-  animator = setInterval(animateSnake, 100);
+  animator = setInterval(animateSnake, 140);
 }
 
 window.onload = startGame;
