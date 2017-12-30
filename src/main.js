@@ -2,9 +2,8 @@ let snake = undefined;
 let food = undefined;
 let numberOfRows = 60;
 let numberOfCols = 120;
-let score = 0;
-
 let animator = undefined;
+let score = 0;
 
 const animateSnake = function() {
   let oldHead = snake.getHead();
@@ -69,7 +68,7 @@ const startGame = function() {
   createFood(numberOfRows, numberOfCols);
   drawFood(food);
   addKeyListener();
-  animator = setInterval(animateSnake, 50);
+  animator = setInterval(animateSnake, 100);
 }
 
 window.onload = startGame;
