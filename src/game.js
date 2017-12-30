@@ -57,12 +57,10 @@ Game.prototype.createFood=function() {
   this.food=new Food(position,growthFactor,superFood);
 }
 
-Game.prototype.increaseScore = function(){
-  this.score += 10;
+Game.prototype.increaseScore = function(points){
+  this.score += points;
 }
 
-Game.prototype.updateScore = function(){
-this.increaseScore();
-let scoreBoard = document.getElementById('scoreBoard');
-scoreBoard.innerHTML = `<h1>score is : ${this.score}</h1>`
+Game.prototype.getScore = function(){
+  return this.score;
 }

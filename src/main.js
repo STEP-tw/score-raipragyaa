@@ -12,7 +12,8 @@ const animateSnake=function() {
   if(game.hasSnakeEatenFood()) {
     game.grow();
     game.createFood();
-    game.updateScore();
+    game.increaseScore(10);
+    getCurrentScore(game.getScore());
     drawFood(game.getFood());
   }
 }
@@ -56,6 +57,11 @@ const createGame=function() {
   let topLeft=new Position(0,0,"east");
   let bottomRight=new Position(numberOfCols,numberOfRows,"east");
   game=new Game(topLeft,bottomRight);
+}
+
+const getCurrentScore = function(score){
+  let scoreBoard = document.getElementById('scoreBoard');
+  scoreBoard.innerHTML = `<h1>score is : ${score}</h1>`
 }
 
 const startGame=function() {
