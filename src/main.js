@@ -59,7 +59,7 @@ const createFood = function(numberOfRows, numberOfCols) {
 const addScore = function() {
   score += 10;
 let scoreBoard = document.getElementById('scoreBoard');
-scoreBoard.innerText = `score is ${score}`
+scoreBoard.innerHTML = `<h1>score is : ${score}</h1>`
 };
 
 const startGame = function() {
@@ -69,7 +69,7 @@ const startGame = function() {
   createFood(numberOfRows, numberOfCols);
   drawFood(food);
   addKeyListener();
-  animator = setInterval(animateSnake, 100);
+  animator = setInterval(animateSnake, 50);
 }
 
 window.onload = startGame;
